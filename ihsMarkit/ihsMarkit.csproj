@@ -49,7 +49,6 @@
     <Compile Include="BookStores\Amazon.cs" />
     <Compile Include="BookStores\Apress.cs" />
     <Compile Include="BookStores\IBookStore.cs" />
-    <Compile Include="BookStores\IResponseParser.cs" />
     <Compile Include="BookStores\Isbn.cs" />
     <Compile Include="PriceParser.cs" />
     <Compile Include="Program.cs" />

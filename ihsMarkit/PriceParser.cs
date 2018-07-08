@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 using ihsMarkit.BookStores;
 
 namespace ihsMarkit
 {
     public class PriceParser
     {
-        public int ParseBookPrice(IResponseParser parser, HttpResponseMessage response)
+        public async Task<int> ParseBookPrice(IBookStore store, HttpResponseMessage response)
         {
-            return parser.ParseResponse(response);
+            
         }
     }
 }

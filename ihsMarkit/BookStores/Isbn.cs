@@ -9,9 +9,10 @@ namespace ihsMarkit.BookStores
         internal Isbn()
         {
             this.searchUri = "https://isbndb.com/search/books/";
+            this.xPath = "/html[1]/body[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/dl[1]/dt[1]";
         }
 
-        public int ParseResponse(HtmlDocument document)
+        protected override int GetValueFromHtmlNode(HtmlNode node)
         {
             throw new NotImplementedException();
         }
