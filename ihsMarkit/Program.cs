@@ -42,10 +42,11 @@ namespace ihsMarkit
             var iii = new HtmlDocument();
 
             iii.LoadHtml(fff);
-
+            var gghg = iii.DocumentNode.SelectNodes(
+                "//html[1]/body[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/dl[1]/dt[1]");
             //var ddd = JObject.Parse(fff);
             //var ttty = response.Headers.
-            Console.WriteLine(fff);
+            Console.WriteLine(gghg);
             //Console.WriteLine(ddd);
         }
     }
