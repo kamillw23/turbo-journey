@@ -1,24 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using HtmlAgilityPack;
+using ihsMarkit.BookStores;
 
 namespace ihsMarkit
 {
     class Program
     {
-        [STAThread]
         static void Main(string[] args)
         {
+            var requester = new BookRequester(new List<IBookStore> {new Amazon(), new Apress() });
             Console.WriteLine("Write book title, to compare prices, write 'end' to exit");
-            string userInput = String.Empty;
-            /* while (userInput != "end")
-             {
-                 userInput = Console.ReadLine();
-                 using (var requester = new BookRequester())
-                 {
-
-                 }
-             }*/
+            string title = String.Empty;
+            while (title != "end")
+            {
+                title = Console.ReadLine();
+                requester.GetBookPrices(title);
+            }
 
             var ggg = new HttpClient();
             //ggg.DefaultRequestHeaders.Add("User-Agent", "User-Agent-Here");

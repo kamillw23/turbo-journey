@@ -1,12 +1,15 @@
-﻿using System.Net.Http;
+﻿using HtmlAgilityPack;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ihsMarkit.BookStores
 {
     public interface IBookStore
     {
-        string GetSearchUri(string title);
+        string SearchUri { get; }
 
-        Task<int> ParseResponse(HttpResponseMessage response);
+        string XPath { get; }
+
+        int GetValueFromHtmlNode(HtmlNode htmlNode);
     }
 }

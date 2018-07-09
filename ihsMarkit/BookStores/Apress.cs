@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Net.Http;
+using HtmlAgilityPack;
 
 namespace ihsMarkit.BookStores
 {
-    public class Apress : AbstractBookStore
+    public class Apress : IBookStore
     {
-        internal Apress()
-        {
-            this.searchUri = "https://www.apress.com/us/book/";
-        }
+        public string SearchUri => "https://www.apress.com/us/book/";
 
-        public int ParseResponse(HttpResponseMessage response)
-        {
-            throw new NotImplementedException();
-        }
+        public string XPath => throw new NotImplementedException();
 
-        public string GetSearchUri(string title)
+        public int GetValueFromHtmlNode(HtmlNode htmlNode)
         {
             throw new NotImplementedException();
         }
