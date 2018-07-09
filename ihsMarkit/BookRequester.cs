@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using HtmlAgilityPack;
+using ihsMarkit.BookStores;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using HtmlAgilityPack;
-using ihsMarkit.BookStores;
 
 namespace ihsMarkit
 {
@@ -18,32 +18,31 @@ namespace ihsMarkit
 
         public async Task<List<BookPriceObject>> GetBookPrices(string title)
         {
-            var isbn = new Isbn();
-            var bookIsbn = this.GetBookData(isbn, title);
+            var bookIsbn = Isbn.GetBookIsbn(title);
 
             var prices = new List<BookPriceObject>();
 
             foreach (var store in bookStores)
             {
-                prices.Add(this.GetBookData(store, await bookIsbn).Result);
+                prices.Add(await this.GetBookData(store, bookIsbn));
             }
 
             return prices;
         }
 
-        private async Task<HttpResponseMessage> AskForBook(IBookSite bookSite, string title)
+        private async Task<HttpResponseMessage> AskForBook(IBookSite bookSite, string isbn)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("User-Agent", "User-Agent-Here");
-                return await client.GetAsync(bookSite.SearchUri + title);
+                return await client.GetAsync(bookSite.SearchUri + isbn);
             }
         }
 
-        private async Task<BookPriceObject> GetBookData(IBookSite bookSite, string title)
+        private async Task<BookPriceObject> GetBookData(IBookSite bookSite, string isbn)
         {
             var htmlDocument = new HtmlDocument();
-            var response = this.AskForBook(bookSite, title).Result;
+            var response = this.AskForBook(bookSite, isbn).Result;
             htmlDocument.LoadHtml(await response.Content.ReadAsStringAsync());
             var nodeWithValue = htmlDocument.DocumentNode.SelectNodes(bookSite.XPath)?.FirstOrDefault();
 

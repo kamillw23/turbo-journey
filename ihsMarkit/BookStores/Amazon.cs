@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
+﻿using HtmlAgilityPack;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using HtmlAgilityPack;
 
 namespace ihsMarkit.BookStores
 {
-    class Amazon : IBookSite
+    internal class Amazon : IBookSite
     {
         public string SearchUri => "https://www.amazon.de/gp/search/?field-isbn=";
 
@@ -17,9 +11,8 @@ namespace ihsMarkit.BookStores
 
         public BookPriceObject GetValueFromHtmlNode(HtmlNode node)
         {
-            var price = Regex.Match(node.InnerText, "\\d*[.]\\d*").Value;
-            return new BookPriceObject {Store = this.ToString(), Price = decimal.Parse(price), Currency = Currency.Euro};
+            var price = Regex.Match(node.InnerText, "\\d*[,]\\d*").Value;
+            return new BookPriceObject { Store = "Amazon", Price = decimal.Parse(price), Currency = Currency.Euros };
         }
-
     }
 }
