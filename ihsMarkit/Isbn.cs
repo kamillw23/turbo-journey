@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 
-namespace ihsMarkit.BookStores
+namespace ihsMarkit
 {
     public static class Isbn
     {

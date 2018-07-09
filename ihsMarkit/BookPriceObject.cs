@@ -17,7 +17,7 @@ namespace ihsMarkit
 
         public override string ToString()
         {
-            return $"Store: {this.Store}, Price: {Price}{Currency}";
+            return $"Store: {this.Store}, Price: {Price} {Currency}";
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using ihsMarkit.BookStores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -18,7 +19,16 @@ namespace ihsMarkit
 
         public async Task<List<BookPriceObject>> GetBookPrices(string title)
         {
-            var bookIsbn = Isbn.GetBookIsbn(title);
+            string bookIsbn;
+            try
+            {
+                bookIsbn = Isbn.GetBookIsbn(title);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($"Could not found ISBN for title: {title}");
+                return null;
+            }
 
             var prices = new List<BookPriceObject>();
 
@@ -42,7 +52,7 @@ namespace ihsMarkit
         private async Task<BookPriceObject> GetBookData(IBookSite bookSite, string isbn)
         {
             var htmlDocument = new HtmlDocument();
-            var response = this.AskForBook(bookSite, isbn).Result;
+            var response = await this.AskForBook(bookSite, isbn);
             htmlDocument.LoadHtml(await response.Content.ReadAsStringAsync());
             var nodeWithValue = htmlDocument.DocumentNode.SelectNodes(bookSite.XPath)?.FirstOrDefault();
 

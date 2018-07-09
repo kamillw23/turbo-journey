@@ -13,9 +13,16 @@ namespace ihsMarkit
             //string title = "Blockchain Enabled Applications";
             string title = Console.ReadLine();
             while (title != "end")
-            {        
-                var chepest = PriceComparer.GetCheapest(requester.GetBookPrices(title).Result);
-                Console.WriteLine(chepest);
+            {
+                if (string.IsNullOrEmpty(title))
+                {
+                    Console.WriteLine("Title is empty, please enter title or write 'end' to finish work");
+                }
+                else
+                {
+                    Console.WriteLine(PriceComparer.GetCheapest(requester.GetBookPrices(title).Result));
+                }
+                
                 title = Console.ReadLine();
             }
         }
