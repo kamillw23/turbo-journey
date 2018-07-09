@@ -17,9 +17,10 @@ namespace ihsMarkit
             this.bookStores = bookStores;
         }
 
-        public Dictionary<string, int> GetBookPrices(string title)
+        public async Task<Dictionary<string, int>> GetBookPrices(string title)
         {
-
+            var isbn = new Isbn();
+            var bookIsbn = this.ParseResponse(isbn, await this.AskForBook(isbn, title));
 
             return null;
         }
@@ -28,11 +29,9 @@ namespace ihsMarkit
         {
             using (var client = new HttpClient())
             {
-                await client.GetAsync(this.GetSearchUri(bookSite));
+                return await client.GetAsync(bookSite.SearchUri + title);
             }  
         }
-
-        private string GetSearchUri(IBookStore bookSite) => bookSite.SearchUri + title;
 
         public async Task<int> ParseResponse(IBookStore bookSite, HttpResponseMessage response)
         {

@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookRequester.cs" />
-    <Compile Include="BookStores\AbstractBookStore.cs" />
     <Compile Include="BookStores\Amazon.cs" />
     <Compile Include="BookStores\Apress.cs" />
     <Compile Include="BookStores\IBookStore.cs" />
