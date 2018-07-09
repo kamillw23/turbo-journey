@@ -44,12 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookPriceObject.cs" />
     <Compile Include="BookRequester.cs" />
     <Compile Include="BookStores\Amazon.cs" />
     <Compile Include="BookStores\Apress.cs" />
-    <Compile Include="BookStores\IBookStore.cs" />
+    <Compile Include="BookStores\IBookSite.cs" />
     <Compile Include="BookStores\Isbn.cs" />
-    <Compile Include="PriceParser.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="PriceComparer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

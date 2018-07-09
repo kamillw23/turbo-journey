@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace ihsMarkit.BookStores
 {
-    public interface IBookStore
+    public interface IBookSite
     {
         string SearchUri { get; }
 
         string XPath { get; }
 
-        int GetValueFromHtmlNode(HtmlNode htmlNode);
+        BookPriceObject GetValueFromHtmlNode(HtmlNode htmlNode);
     }
 }
