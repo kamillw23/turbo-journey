@@ -10,6 +10,6 @@ namespace ihsMarkit.BookStores
 
         string XPath { get; }
 
-        BookPriceObject GetValueFromHtmlNode(HtmlNode htmlNode);
+        BookPriceObject? GetValueFromHtmlNode(HtmlNode htmlNode);
     }
 }

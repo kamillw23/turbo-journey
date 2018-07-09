@@ -26,15 +26,19 @@ namespace ihsMarkit
             }
             catch (ArgumentNullException ex)
             {
-                Console.WriteLine($"Could not found ISBN for title: {title}");
-                return null;
+                throw new ApplicationException($"Could not find ISBN for title: {title}",ex);
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new ApplicationException($"Could not find ISBN for title: {title}", ex);
             }
 
             var prices = new List<BookPriceObject>();
 
             foreach (var store in bookStores)
             {
-                prices.Add(await this.GetBookData(store, bookIsbn));
+                var bookData = await this.GetBookData(store, bookIsbn);
+                if (bookData != null) prices.Add(bookData.Value);
             }
 
             return prices;
@@ -49,14 +53,27 @@ namespace ihsMarkit
             }
         }
 
-        private async Task<BookPriceObject> GetBookData(IBookSite bookSite, string isbn)
+        private async Task<BookPriceObject?> GetBookData(IBookSite bookSite, string isbn)
         {
             var htmlDocument = new HtmlDocument();
             var response = await this.AskForBook(bookSite, isbn);
             htmlDocument.LoadHtml(await response.Content.ReadAsStringAsync());
             var nodeWithValue = htmlDocument.DocumentNode.SelectNodes(bookSite.XPath)?.FirstOrDefault();
 
-            return bookSite.GetValueFromHtmlNode(nodeWithValue);
+            try
+            {
+                return bookSite.GetValueFromHtmlNode(nodeWithValue);
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine($"Could not find book with: {isbn} in {bookSite.GetType().Name}");
+                return null;
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine($"Could not find book with: {isbn} in {bookSite.GetType().Name}");
+                return null;
+            }
         }
     }
 }

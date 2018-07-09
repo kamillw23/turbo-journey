@@ -49,7 +49,7 @@
     <Compile Include="BookStores\Amazon.cs" />
     <Compile Include="BookStores\Apress.cs" />
     <Compile Include="BookStores\IBookSite.cs" />
-    <Compile Include="BookStores\Isbn.cs" />
+    <Compile Include="Isbn.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="PriceComparer.cs" />
     <Compile Include="Program.cs" />
